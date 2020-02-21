@@ -9,8 +9,7 @@ export default class ValueController {
       .get("", this.getAll)
       .get("/:id", this.getById)
       .post("", this.create)
-      .put("/:id", this.edit)
-      .delete("/:id", this.close)
+      .delete("/:id", this.delete)
   }
 
   async getAll(req, res, next) {
@@ -37,17 +36,9 @@ export default class ValueController {
       next(error);
     }
   }
-  async edit(req, res, next) {
+  async delete(req, res, next) {
     try {
-      let data = await NoteService.edit(req.params.id, req.body);
-      return res.send(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-  async close(req, res, next) {
-    try {
-      let data = await NoteService.close(req.params.id);
+      let data = await NoteService.delete(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error);

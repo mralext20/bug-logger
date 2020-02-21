@@ -15,9 +15,9 @@ class BugsService {
   }
   async edit(id, update) {
     let bug = await _repository.findById(id)
-    if (!bug.closed) {
-      bug.title = update.title || bug.title;
-      bug.description = update.description || bug.description;
+    if (!bug["closed"]) {
+      bug["title"] = update.title || bug["title"];
+      bug["description"] = update.description || bug["description"];
       await bug.save()
       return bug;
     }
@@ -26,10 +26,10 @@ class BugsService {
 
   async close(id) {
     let bug = await _repository.findById(id);
-    if (!bug.closed) {
+    if (!bug["closed"]) {
 
-      bug.closed = true
-      bug.closedDate = new Date()
+      bug["closed"] = true
+      bug["closedDate"] = new Date()
       bug.save()
       return "Success"
     }
