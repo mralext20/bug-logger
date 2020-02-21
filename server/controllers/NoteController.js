@@ -1,6 +1,5 @@
 import express from "express";
-import BugsService from "../services/BugsService";
-import NoteService from "../services/NoteService"
+import NoteService from "../services/NoteService";
 
 export default class ValueController {
   constructor() {
@@ -9,32 +8,22 @@ export default class ValueController {
       //NOTE  each route gets registered as a .get, .post, .put, or .delete, the first parameter of each method is a string to be concatinated onto the base url registered with the route in main. The second parameter is the method that will be run when this route is hit.
       .get("", this.getAll)
       .get("/:id", this.getById)
-      .get("/:id/notes", this.getNotesByBugId)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.close)
-
   }
 
   async getAll(req, res, next) {
     try {
-      let data = await BugsService.getAll();
+      let data = await NoteService.getAll();
       return res.send(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-  async getNotesByBugId(req, res, next) {
-    try {
-      let data = await NoteService.getByBugId(req.params.id)
-      return res.send(data)
     } catch (error) {
       next(error);
     }
   }
   async getById(req, res, next) {
     try {
-      let data = await BugsService.getById(req.params.id);
+      let data = await NoteService.getById(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error);
@@ -42,7 +31,7 @@ export default class ValueController {
   }
   async create(req, res, next) {
     try {
-      let data = await BugsService.create(req.body);
+      let data = await NoteService.create(req.body);
       return res.send(data);
     } catch (error) {
       next(error);
@@ -50,7 +39,7 @@ export default class ValueController {
   }
   async edit(req, res, next) {
     try {
-      let data = await BugsService.edit(req.params.id, req.body);
+      let data = await NoteService.edit(req.params.id, req.body);
       return res.send(data);
     } catch (error) {
       next(error);
@@ -58,7 +47,7 @@ export default class ValueController {
   }
   async close(req, res, next) {
     try {
-      let data = await BugsService.close(req.params.id);
+      let data = await NoteService.close(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error);

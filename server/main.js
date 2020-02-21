@@ -36,9 +36,11 @@ server.use(bp.json());
 
 //NOTE we have to import access to our controllers
 import BugController from "./controllers/BugController";
+import NotesController from "./controllers/NoteController"
 
 //NOTE remember the forward slash at the start of your path!
 server.use("/api/bugs", new BugController().router);
+server.use("/api/notes", new NotesController().router)
 
 //NOTE Everything below this line always stays the same
 
