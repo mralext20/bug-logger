@@ -12,6 +12,7 @@ export default class ValueController {
       .get("/:id/notes", this.getNotesByBugId)
       .post("", this.create)
       .put("/:id", this.edit)
+      .put("/:bug/notes/:id", this.editNote)
       .delete("/:id", this.close)
 
   }
@@ -51,6 +52,15 @@ export default class ValueController {
   async edit(req, res, next) {
     try {
       let data = await BugsService.edit(req.params.id, req.body);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async editNote(req, res, next) {
+    try {
+      let data = await NoteService.edit(req.params.id, req.body);
       return res.send(data);
     } catch (error) {
       next(error);
